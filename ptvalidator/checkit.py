@@ -1,36 +1,32 @@
+import ptvalidator.scripts.sentence_analyzer as sa
+
+
+def test_sentence():
+    verbs =  sentence.find_verbs()
+    verbs = list(verbs)
+    a = verbs[0].text
+    print(a)
+
 def checker():
-    l = [
-        0,
-        0.07,
-        0.16,
-        0.27,
-        0.37,
-        0.48,
-        0.59,
-        0.7,
-        0.81,
-        0.91,
-        1.02,
-        1.13,
-        1.23,
-        1.34,
-        1.45,
-        1.55]
+    import ptvalidator.scripts.crawler as crawler
+    import ptvalidator.scripts.data_manager as crawler
+    crawler = crawler.GoogleCrawler('andrzej duda żyje', 50)
+    crawler.crawl()
 
-    for i in l:
-        print (str(round(i-0.0001, 5)).replace(".",","))
-        print (str(round(i, 5)).replace(".",","))
-    for k in range (0,15):
-        print (k)
-        print (k)
-start = 0
-while start < 2.50:
-    start += 0.1
-    print(str(round(start, 2)))
+    map = crawler.get_sources()
 
-while start > 0:
-    start -= 0.1
-    print(str(round(start, 2)))
+    for k in map.keys():
+        print (str(k).split('//',1)[1].split('/',1)[0] +':'+ str(map[k]))
+
+def datamng():
+    import ptvalidator.scripts.data_manager as dm
+    from ptvalidator.scripts.sentence_analyzer import SentenceAnalyzer
+    menage = dm.DataManager(SentenceAnalyzer('Ariana Grande died'))
+    a = menage.get_result()
 
 if __name__ == '__main__':
-    checker()
+    import logging
+
+    logging.basicConfig(level=logging.DEBUG,
+                        format='%(asctime)s  - %(levelname)s - %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+    datamng()
