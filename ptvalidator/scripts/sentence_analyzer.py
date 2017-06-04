@@ -49,7 +49,6 @@ class Sentence:
     def get_subject(self):
         subject_temp = None
         for word in self.doc_sentence:
-            print(word, word.dep_, word.pos_)
             if (word.dep == nsubjpass or word.dep == nsubj) and (word.pos == NOUN or word.pos == PROPN):
                 subject_temp = [word]
 
