@@ -6,7 +6,7 @@ from ptvalidator.scripts.datarecievier import DataReceiver
 def validate(query, key, verbose_log=True):
     import logging
     if verbose_log:
-        logging.basicConfig(level=logging.DEBUG,
+        logging.basicConfig(level=logging.INFO,
                             format='%(asctime)s  - %(levelname)s - %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
     else:
         logging.basicConfig(level=logging.FATAL)
