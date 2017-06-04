@@ -9,7 +9,7 @@
 PREREQUISITES
 =============
 
-cmptcomplexity requires the following software installed for your platform:
+ptvalidotor requires the following software installed for your platform:
 
 
 1) spacy
@@ -67,10 +67,6 @@ After executing this, you can:
 
     >>> results.is_true
     >>> results.display_sources()
-
-
-    .. image:: https://raw.githubusercontent.com/AGHPythonCourse2017/zad2-moskalap/master/docs/img/sorted_plot.png?token=AWCREl9JX-_57k3FLB0UyIl52kAYEdNHks5ZFyCJwA%3D%3D
-
 
 
 For more information read see jupyter example
