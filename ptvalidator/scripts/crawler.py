@@ -21,7 +21,7 @@ class Crawler:
 
 class GoogleCrawler(Crawler):
     def crawl(self, queries):
-        from ptvalidator.scripts.news import CrawledDataContainer
+        from ptvalidator.scripts.information import CrawledDataContainer
         from ptvalidator.scripts.worker import GoogleSearchWorker
         container = CrawledDataContainer()
         workers = []
@@ -54,7 +54,7 @@ class TwitterCrawler(Crawler):
     def crawl(self, queries):
 
         from ptvalidator.scripts.worker import TwitterWorker
-        from ptvalidator.scripts.news import CrawledDataContainer
+        from ptvalidator.scripts.information import CrawledDataContainer
         workers = []
         container = CrawledDataContainer()
 
