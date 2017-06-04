@@ -7,6 +7,7 @@ class Crawler:
     def __init__(self, num_of_sources=25):
         self.num_of_sources = num_of_sources
         self.crawled = False
+        self.key = None
 
     def crawl(self, query):
         raise NotImplementedError('There is no implementation for this kind of crawler')
@@ -59,7 +60,7 @@ class TwitterCrawler(Crawler):
 
         for query in queries:
             logging.info('Create worker for query = ' + str(query))
-            workers.append(TwitterWorker(query, container, True, True, True))
+            workers.append(TwitterWorker(query, self.key, container, True, True, True))
 
         for worker in workers:
             worker.start()
