@@ -1,11 +1,9 @@
 import logging
-from urllib.error import HTTPError
-
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s  - %(levelname)s - %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 
 class Crawler:
+    """Class for crawling internet resources"""
+
     def __init__(self, num_of_sources=25):
         self.num_of_sources = num_of_sources
         self.crawled = False
@@ -21,44 +19,34 @@ class Crawler:
 
 
 class GoogleCrawler(Crawler):
-    def crawl(self, query):
+    def crawl(self, queries):
         from ptvalidator.scripts.news import CrawledDataContainer
-        self.container = CrawledDataContainer()
-        self.workers = []
-        from ptvalidator.scripts.worker import GoogleWorker
-        import google
-        logging.info('GoogleCrawler started searching.')
-        sources = google.search(query, num=self.num_of_sources)
-        try:
+        from ptvalidator.scripts.worker import GoogleSearchWorker
+        container = CrawledDataContainer()
+        workers = []
+        sources = []
 
-            for i in range(self.num_of_sources):
-                self.workers.append(GoogleWorker(next(sources), self.container, i))
+        for query in queries:
+            # for each query create worker, who receive websites to crawl
+            workers.append(GoogleSearchWorker(query, sources, container))
 
-
-
-        except HTTPError:
-            print('upps')
-        logging.info('GoogleCrawler recieved urls')
-        logging.info('GoogleCrawler started to crawl websites')
-
-        for worker in self.workers:
+        for worker in workers:
             worker.start()
 
-        for worker in self.workers:
+        for worker in workers:
             worker.join()
 
-        # At this moment we havea data in container
-        return self.container
+        # at this moment we have a worker for each website, ready to start crawl website
 
-    def count_credibility(self, url):
+        for worker in sources:
+            # so let them crawl
+            worker.start()
 
-        if str(url).find('gov') != -1:
-            return 2
-        if str(url).find('wikipedia') != -1:
-            return 1.7
-        if str(url).find('https') != -1:
-            return 1
-        return 0.9
+        for worker in sources:
+            worker.join(5)
+
+        # At this moment we have a data in container
+        return container
 
 
 class TwitterCrawler(Crawler):
@@ -66,22 +54,23 @@ class TwitterCrawler(Crawler):
 
         from ptvalidator.scripts.worker import TwitterWorker
         from ptvalidator.scripts.news import CrawledDataContainer
-        self.workers = []
-        self.container = CrawledDataContainer()
+        workers = []
+        container = CrawledDataContainer()
 
         for query in queries:
             logging.info('Create worker for query = ' + str(query))
-            self.workers.append(TwitterWorker(query, self.container, True, True, True))
+            workers.append(TwitterWorker(query, container, True, True, True))
 
-        for worker in self.workers:
+        for worker in workers:
             worker.start()
 
-        for worker in self.workers:
+        for worker in workers:
             worker.join()
-        return self.container
+        return container
 
 
 class FacebookCrawler:
+    # TODO
     pass
 
 
