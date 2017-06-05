@@ -37,7 +37,7 @@ class GoogleWorker(threading.Thread):
 
     def run(self):
         from newspaper.article import ArticleException
-        logging.info('Google Worker started reading ' + self.site)
+        logging.debug('Google Worker started reading ' + self.site)
         from newspaper import Article
         from ptvalidator.scripts.information import GoogleProperties, Information
         prop = GoogleProperties(self.site, self.index_no)
@@ -45,7 +45,7 @@ class GoogleWorker(threading.Thread):
             art = Article(self.site)
             art.download()
             art.parse()
-            logging.info('Parsed an article from site ' + self.site)
+            logging.debug('Parsed an article from site ' + self.site)
             text = art.text.split(".")
             information = Information(text, prop)
             self.results.add_information(information)

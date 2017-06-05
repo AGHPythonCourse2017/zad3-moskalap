@@ -28,7 +28,7 @@ class DataManager:
                         {'info': newsen_obj.doc_sentence.string, 'credibility': info.properties.count_credibility(),
                          'src': info.properties.get_source()})
 
-        if len(similarities) > 5:
+        if len(similarities) > 10:
             res = Result(True)
         else:
             res = Result(False)
