@@ -17,13 +17,13 @@ class DataManager:
 
         saa = sa.SentenceAnalyzer()
         bs_obj = self.basic_sentence
-        logging.info('Essentials hashtags : ', bs_obj.essential_htgs)
+        logging.info(bs_obj.essential_htgs)
         for info in self.container.infos:
             for sentence in info.text:
                 newsen_obj = saa.create_sentence(sentence)
                 simil = saa.compare_sentence(bs_obj, newsen_obj)
                 if simil > 0.2:
-                    logging.info('sim: %f %s', simil, newsen_obj.doc_sentence.string)
+                    logging.info('found similiar: %f %s', simil, newsen_obj.doc_sentence.string)
                     similarities.append(
                         {'info': newsen_obj.doc_sentence.string, 'credibility': info.properties.count_credibility(),
                          'src': info.properties.get_source()})
