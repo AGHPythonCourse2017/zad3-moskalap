@@ -22,13 +22,13 @@ class DataManager:
             for sentence in info.text:
                 newsen_obj = saa.create_sentence(sentence)
                 simil = saa.compare_sentence(bs_obj, newsen_obj)
-                if simil > 0.2:
+                if simil > 0.2 and len(newsen_obj.doc_sentence.string) > 12:
                     logging.info('found similiar: %f %s', simil, newsen_obj.doc_sentence.string)
                     similarities.append(
                         {'info': newsen_obj.doc_sentence.string, 'credibility': info.properties.count_credibility(),
                          'src': info.properties.get_source()})
 
-        if len(similarities) > 10:
+        if len(similarities) > 7:
             res = Result(True)
         else:
             res = Result(False)

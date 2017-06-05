@@ -77,6 +77,6 @@ class CrawledDataContainer:
 
     def filter_trash(self):
         logging.info('Rejecting trashes')
-        new_list = list(filter(lambda x: len(x.text) > 6, self.infos))
+        new_list = list(filter(lambda x: len(x.text) > 15, self.infos))
         logging.info('Rejected %d trash infos', len(self.infos) - len(new_list))
         self.infos = new_list
