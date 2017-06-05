@@ -69,4 +69,9 @@ After executing this, you can:
     >>> results.display_sources()
 
 
-For more information read see jupyter example
+For more information
+
+Type::
+
+ wget https://raw.githubusercontent.com/AGHPythonCourse2017/zad3-moskalap/master/jupyter/example.ipynb
+ jupyter notebook example.ipynb
